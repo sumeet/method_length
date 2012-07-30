@@ -18,9 +18,7 @@ def docstring_length(node):
     return 0 if docstring is None else docstring.count('\n') + 1
 
 
-def last_line(node, highest=0):
-    if get_line_no(node) > highest:
-        highest = get_line_no(node)
+def last_line(node):
     children = ast.iter_child_nodes(node)
     child_lines = map(last_line, children)
     return max([get_line_no(node)] + child_lines)
