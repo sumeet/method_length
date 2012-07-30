@@ -32,7 +32,12 @@ Method = namedtuple('Method', 'name lines')
 
 
 if __name__ == '__main__':
-    code = '\n'.join(open(arg).read() for arg in sys.argv[1:])
+    if len(sys.argv) < 2:
+        print 'usage: %s filename.py' % sys.argv[0]
+        quit(1)
+
+    filename = sys.argv[1]
+    code = open(filename).read()
     methods = find_method_lengths(code)
     for method in methods:
-        print '%s\t%s' % (method.lines, method.name)
+        print '%s\t%s (%s)' % (method.lines, method.name, filename)
